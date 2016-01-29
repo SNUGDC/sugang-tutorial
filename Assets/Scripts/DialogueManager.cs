@@ -30,11 +30,12 @@ public class DialogueManager : MonoBehaviour
     public TextAsset jsonFile;
 
     private JsonReader jsonReader;
-    private JsonData dialogueData;
+    private Dictionary<string, List<Dialogue>> dialogueDict;
     
     void Start()
     {
         jsonReader = new JsonReader(jsonFile.text);
+        dialogueDict = new Dictionary<string, List<Dialogue>>();
         loadData();
         startDialogue();
     }
@@ -51,17 +52,23 @@ public class DialogueManager : MonoBehaviour
     }
     private void loadData()
     {
-        dialogueData = JsonMapper.ToObject(jsonReader);
+        Dictionary<string, List<string>> dialogueDictTemp = JsonMapper.ToObject<Dictionary<string, List<string>>>(jsonReader);
+        // convert Dictionary<string, List<string>> to Dictionary<string, List<Dialogue>>
+        foreach(string key in dialogueDictTemp.Keys)
+        {
+            var dialogueStringList = dialogueDictTemp[key];
+            var dialogueList = new List<Dialogue>();
+            foreach(string dialogueString in dialogueStringList)
+            {
+                dialogueList.Add(stringToDialogue(dialogueString));
+            }
+            dialogueDict.Add(key, dialogueList);
+        }
         loadDialogue("dialogue-" + SceneLoader.stageNum);
     }
     public void loadDialogue(string name)
     {
-        dialogues = new List<Dialogue>();
-        IEnumerable lines = dialogueData[name];
-        foreach (var line in lines)
-        {
-            dialogues.Add(stringToDialogue(line.ToString()));
-        }
+        dialogues = dialogueDict[name];
     }
     public void startDialogue(int startIndex = 0)
     {
