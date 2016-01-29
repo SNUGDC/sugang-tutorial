@@ -5,27 +5,28 @@ using System.Collections;
 using System.Collections.Generic;
 using LitJson;
 
-public struct Dialogue {
-    public string name {get; set;}
-    public string text {get; set;}
-    public Dialogue(string name, string text) {
+public class Dialogue
+{
+    public string name { get; private set; }
+    public string text { get; private set; }
+    public Dialogue(string name, string text)
+    {
         this.name = name; this.text = text;
     }
 }
 
-public class DialogueManager : MonoBehaviour {
-    
+public class DialogueManager : MonoBehaviour
+{
     public Text nameText;
     public Text talkText;
-    
-    public bool dialoguePlaying = true;
-    public int dialogueIndex = 0;
-    
+
+    public bool isTyping = false;
+    public int nextDialogueIndex = 0;
+
     [HideInInspector]
     public List<Dialogue> dialogues;
-    public JsonData dialogueData;
     public TextAsset jsonFile;
-    
+
     private JsonReader jsonReader;
 
     void Start()
@@ -36,56 +37,72 @@ public class DialogueManager : MonoBehaviour {
     }
     void Update()
     {
-        if(Input.GetKeyDown("space")) {
+        if (Input.GetKeyDown("space") && !isTyping)
+        {
             gotoNextDialogue();
         }
+        if (Input.GetKeyDown("x") && isTyping)
+        {
+            isTyping = false;
+        }
     }
-    public void loadData()
+    private void loadData()
     {
-        dialogueData = JsonMapper.ToObject(jsonReader);
-        loadDialogue("dialogue-1");
+        var dialogueData = JsonMapper.ToObject(jsonReader);
+        loadDialogue("dialogue-1", dialogueData);
     }
-    public void loadDialogue(string name)
+    private void loadDialogue(string name, JsonData dialogueData)
     {
         dialogues = new List<Dialogue>();
         IEnumerable lines = dialogueData[name];
-        foreach(var line in lines) {
+        foreach (var line in lines)
+        {
             string[] lineData = line.ToString().Split(':');
             dialogues.Add(new Dialogue(lineData[0], lineData[1]));
         }
-        
-        foreach(Dialogue dialogue in dialogues) {
+
+        foreach (Dialogue dialogue in dialogues)
+        {
             Debug.Log(dialogue.name + ", " + dialogue.text);
         }
     }
-    public void startDialogue()
+    private void startDialogue(int startIndex = 0)
     {
-        dialogueIndex = 0;
+        nextDialogueIndex = startIndex;
         gameObject.SetActive(true);
         gotoNextDialogue();
     }
-    public void stopDialogue()
+    private void stopDialogue()
     {
         gameObject.SetActive(false);
     }
-    public void gotoNextDialogue()
+    private void gotoNextDialogue()
     {
-        if (dialogueIndex >= dialogues.Count) {
+        if (nextDialogueIndex >= dialogues.Count)
+        {
             stopDialogue();
             return;
         }
-        Dialogue nextLine = dialogues[dialogueIndex];
+        Dialogue nextLine = dialogues[nextDialogueIndex];
         nameText.text = nextLine.name;
+        isTyping = true;
         StartCoroutine(typingEffect(talkText, nextLine.text, 0.1f));
-        dialogueIndex++;
+        nextDialogueIndex++;
     }
-    public IEnumerator typingEffect(Text textComponent, string text, float interval)
+    private IEnumerator typingEffect(Text textComponent, string text, float interval)
     {
         string tempText = "";
-        foreach(char c in text) {
+        foreach (char c in text)
+        {
+            if (!isTyping) {
+                textComponent.text = text;
+                yield break;
+            }
             tempText += c;
             textComponent.text = tempText;
             yield return new WaitForSeconds(interval);
         }
+        isTyping = false;
+        yield return new WaitForEndOfFrame();
     }
 }
