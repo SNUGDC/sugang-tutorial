@@ -229,10 +229,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e35034184fbdd41a1af1d80cc4c7d9eb, type: 3}
-    m_FontSize: 10
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 8
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -296,14 +296,14 @@ RectTransform:
   m_GameObject: {fileID: 153768}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 22470306}
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0.7883498}
   m_AnchorMax: {x: 0.83000004, y: 0.97210306}
-  m_AnchoredPosition: {x: 5.5750113, y: 0.000015258789}
-  m_SizeDelta: {x: -11.15, y: 0.000026703}
+  m_AnchoredPosition: {x: 5.3224, y: 5.6}
+  m_SizeDelta: {x: 139.19, y: 23.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22433442
 RectTransform:
