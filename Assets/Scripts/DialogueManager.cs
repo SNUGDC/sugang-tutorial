@@ -22,13 +22,16 @@ public class DialogueManager : MonoBehaviour
 
     public bool isTyping = false;
     public int nextDialogueIndex = 0;
+    public bool spaceButtonEnabled = true;
+    public bool xButtonEnabled = true;
 
     [HideInInspector]
     public List<Dialogue> dialogues;
     public TextAsset jsonFile;
 
     private JsonReader jsonReader;
-
+    private JsonData dialogueData;
+    
     void Start()
     {
         jsonReader = new JsonReader(jsonFile.text);
@@ -37,36 +40,30 @@ public class DialogueManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown("space") && !isTyping)
+        if (Input.GetKeyDown("space") && !isTyping && spaceButtonEnabled)
         {
             gotoNextDialogue();
         }
-        if (Input.GetKeyDown("x") && isTyping)
+        if (Input.GetKeyDown("x") && isTyping && xButtonEnabled)
         {
             isTyping = false;
         }
     }
     private void loadData()
     {
-        var dialogueData = JsonMapper.ToObject(jsonReader);
-        loadDialogue("dialogue-" + SceneLoader.stageNum, dialogueData);
+        dialogueData = JsonMapper.ToObject(jsonReader);
+        loadDialogue("dialogue-" + SceneLoader.stageNum);
     }
-    private void loadDialogue(string name, JsonData dialogueData)
+    public void loadDialogue(string name)
     {
         dialogues = new List<Dialogue>();
         IEnumerable lines = dialogueData[name];
         foreach (var line in lines)
         {
-            string[] lineData = line.ToString().Split(':');
-            dialogues.Add(new Dialogue(lineData[0], lineData[1]));
-        }
-
-        foreach (Dialogue dialogue in dialogues)
-        {
-            Debug.Log(dialogue.name + ", " + dialogue.text);
+            dialogues.Add(stringToDialogue(line.ToString()));
         }
     }
-    private void startDialogue(int startIndex = 0)
+    public void startDialogue(int startIndex = 0)
     {
         nextDialogueIndex = startIndex;
         gameObject.SetActive(true);
@@ -76,7 +73,7 @@ public class DialogueManager : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    private void gotoNextDialogue()
+    public void gotoNextDialogue()
     {
         if (nextDialogueIndex >= dialogues.Count)
         {
@@ -104,5 +101,10 @@ public class DialogueManager : MonoBehaviour
         }
         isTyping = false;
         yield return new WaitForEndOfFrame();
+    }
+    public Dialogue stringToDialogue(string line)
+    {
+        string[] lineData = line.ToString().Split(':');
+        return new Dialogue(lineData[0], lineData[1]);
     }
 }

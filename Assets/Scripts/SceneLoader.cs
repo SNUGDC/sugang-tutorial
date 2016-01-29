@@ -5,6 +5,10 @@ public class SceneLoader : MonoBehaviour
 {
     public static int stageNum = 1;
     
+    void Start()
+    {
+        stageNum = Application.loadedLevel;
+    }
     void Update()
     {
         if (Input.GetKeyDown("["))
