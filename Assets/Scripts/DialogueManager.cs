@@ -24,6 +24,7 @@ public class DialogueManager : MonoBehaviour
     public int nextDialogueIndex = 0;
     public bool spaceButtonEnabled = true;
     public bool xButtonEnabled = true;
+    public bool isActive = false;
 
     [HideInInspector]
     public List<Dialogue> dialogues;
@@ -93,6 +94,11 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(typingEffect(talkText, nextLine.text, 0.1f));
         nextDialogueIndex++;
     }
+    public bool isRunning()
+    {
+        return gameObject.activeSelf;
+    }
+
     private IEnumerator typingEffect(Text textComponent, string text, float interval)
     {
         string tempText = "";
