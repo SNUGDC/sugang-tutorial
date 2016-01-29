@@ -49,7 +49,7 @@ public class DialogueManager : MonoBehaviour
     private void loadData()
     {
         var dialogueData = JsonMapper.ToObject(jsonReader);
-        loadDialogue("dialogue-1", dialogueData);
+        loadDialogue("dialogue-" + SceneLoader.stageNum, dialogueData);
     }
     private void loadDialogue(string name, JsonData dialogueData)
     {

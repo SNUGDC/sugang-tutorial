@@ -2,5 +2,9 @@
     "dialogue-1": [
         "person-1: 서울대학교 모의수강신청에 오신 것을 환영합니다!",
         "person-2: 무슨 약파는 짓이야!!!"
+    ],
+    "dialogue-2": [
+        "person-1: 야호",
+        "person-2: 야호" 
     ]
 }
