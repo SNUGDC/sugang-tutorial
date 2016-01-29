@@ -9,6 +9,7 @@
         Monday, Tuesday, Wednesday, Thursday, Friday
     }
     
+    public int number = 1;
     public string name;  //강좌명
     public string code;  //강좌코드
     public int units;   //이수학점
@@ -57,4 +58,6 @@
     public bool isMajorExcluded = false;    //전공생 수강금지 여부
     public bool isNewbieFirst = false;  //1학년 우선신청 여부
     public string others;    //기타 임시용 필드
+    public int currentStudent = 0;
+    public int capacity;
 }

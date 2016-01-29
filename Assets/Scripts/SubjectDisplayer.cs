@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class SubjectDisplayer : MonoBehaviour 
 {
     public Text nameText;
+    public Text numberText;
     public Text codeText;
     public Text unitText;
     public Text periodText;
@@ -11,14 +12,19 @@ public class SubjectDisplayer : MonoBehaviour
     public Text collegeText;
     public Text departmentText;
     public Text infoText;
+    public Text currentText;
+    public Text capacityText;
     
     public void ShowSubject(Subject target)
     {
         nameText.text = target.name;
+        numberText.text = target.number.ToString("000");
         codeText.text = target.code;
         unitText.text = target.units.ToString();
         collegeText.text = target.college;
         departmentText.text = target.department;
+        currentText.text = target.currentStudent.ToString();
+        capacityText.text = target.capacity.ToString();
         
         string category = "";
         switch(target.category)
