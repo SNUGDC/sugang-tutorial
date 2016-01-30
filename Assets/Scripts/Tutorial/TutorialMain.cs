@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class TutorialMain : MonoBehaviour {
@@ -20,7 +21,7 @@ public class TutorialMain : MonoBehaviour {
 
         yield return WaitForDialogueEnd("dialogue-openMemo");
 
-        yield return CommonPopupOpener.OpenCoroutine(
+        CommonPopupOpener.Open(
             title: "Lecture",
             firstLine: "PL",
             secondLine: "Understanding of Game",
@@ -28,6 +29,8 @@ public class TutorialMain : MonoBehaviour {
             onClickYes: () => {},
             noButtonText: "No",
             onClickNo: () => {});
+
+        yield return WaitForEnRoll();
 
         yield return null;
     }
@@ -57,5 +60,36 @@ public class TutorialMain : MonoBehaviour {
             yield return null;
         }
         Debug.Log("Chrome Opened.");
+    }
+
+    private IEnumerator WaitForEnRoll()
+    {
+        var enrolmentUI = EnrolmentSingleton.Instance.FindEnrolmentUI();
+        while (enrolmentUI == null)
+        {
+            enrolmentUI = EnrolmentSingleton.Instance.FindEnrolmentUI();
+            yield return null;   
+        }
+        
+        Subject selectedSubject = null;
+        Action<Subject> onEnroll = (selectedInput) => {
+            selectedSubject = selectedInput;
+            if (selectedSubject == null || selectedSubject.code != "001")
+            {
+                CommonPopupOpener.OpenSimpleErrorPopup("잘못된 과목입니다. 다시하세요.");
+            }
+        };
+
+        Debug.Assert(enrolmentUI != null);
+        enrolmentUI.OnEnrollEvent += onEnroll;
+        
+        while (selectedSubject == null || selectedSubject.code != "001")
+        {
+            yield return null;
+        }
+        
+        enrolmentUI.OnEnrollEvent -= onEnroll;
+
+        yield return CommonPopupOpener.OpenSimpleSuccessPopupCoroutine("성공");
     }
 }

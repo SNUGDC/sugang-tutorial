@@ -35,4 +35,43 @@ public class CommonPopupOpener : MonoBehaviour {
             yield return null;
         }
     }
+
+    public static void OpenSimpleErrorPopup(string errorMessage)
+    {
+        Open(
+            title: "Error",
+            firstLine: errorMessage,
+            secondLine: "",
+            yesButtonText: "OK",
+            onClickYes: () => {},
+            noButtonText: "Cancel",
+            onClickNo: () => {}
+        );
+    }
+
+    public static void OpenSimpleSuccessPopup(string successMessage, Action onClickYes, Action onClickNo)
+    {
+        Open(
+            title: "Success",
+            firstLine: successMessage,
+            secondLine: "",
+            yesButtonText: "OK",
+            onClickYes: onClickYes,
+            noButtonText: "Cancel",
+            onClickNo: onClickNo
+        );
+    }
+
+    public static IEnumerator OpenSimpleSuccessPopupCoroutine(string successMessage)
+    {
+        return OpenCoroutine(
+            title: "Success",
+            firstLine: successMessage,
+            secondLine: "",
+            yesButtonText: "OK",
+            onClickYes: () => {},
+            noButtonText: "Cancel",
+            onClickNo: () => {}
+        );
+    }
 }
