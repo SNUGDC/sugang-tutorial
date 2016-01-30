@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using UnityEngine.UI;
 
 public class EnrolmentUI : MonoBehaviour {
     public SubjectRow subjectResultRowExample;
@@ -8,6 +10,7 @@ public class EnrolmentUI : MonoBehaviour {
 
     // example data.
     private List<Subject> subjects = new List<Subject>();
+    private Subject selectedSubject = null;
     
     private void Start() {
         List<Subject> exampleSubjects = new List<Subject> {
@@ -24,6 +27,22 @@ public class EnrolmentUI : MonoBehaviour {
         };
 
         Setup(exampleSubjects);
+    }
+
+    public void OnDeselectSubject(string code)
+    {
+        if (selectedSubject == null || selectedSubject.code != code)
+        {
+            Debug.LogError("Not selected object is delselected : " + code);
+        }
+        selectedSubject = null;
+        Debug.Log("Subject deselected");
+    }
+
+    public void OnSelectSubject(string code)
+    {
+        selectedSubject = subjects.Where(subject => subject.code == code).First();
+        Debug.Log("Select : " + selectedSubject.name); 
     }
 
     public void Search(string code, string name)
