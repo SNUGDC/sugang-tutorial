@@ -15,11 +15,24 @@ public class Dialogue
     }
 }
 
+[System.Serializable]
+public class CharacterInfo
+{
+    public string name;
+    public List<Sprite> sprites;
+    public CharacterInfo(string name, List<Sprite> sprites)
+    {
+        this.name = name; this.sprites = sprites;
+    }
+}
+
 public class DialogueManager : MonoBehaviour
 {
     public Text nameText;
     public Text talkText;
+    public Image personImage;
 
+    public List<CharacterInfo> characterInfoList;
     public bool isTyping = false;
     public int nextDialogueIndex = 0;
     public bool spaceButtonEnabled = true;
@@ -75,12 +88,14 @@ public class DialogueManager : MonoBehaviour
     {
         nextDialogueIndex = startIndex;
         gameObject.SetActive(true);
+        personImage.gameObject.SetActive(true);
         gotoNextDialogue();
     }
     public void stopDialogue()
     {
         isTyping = false;
         gameObject.SetActive(false);
+        personImage.gameObject.SetActive(false);
     }
     public void gotoNextDialogue()
     {
@@ -91,6 +106,7 @@ public class DialogueManager : MonoBehaviour
         }
         Dialogue nextLine = dialogues[nextDialogueIndex];
         nameText.text = nextLine.name;
+        personImage.sprite = characterInfoList.Find(x => (x.name == nextLine.name)).sprites[0];
         isTyping = true;
         StartCoroutine(typingEffect(talkText, nextLine.text, 0.1f));
         nextDialogueIndex++;
