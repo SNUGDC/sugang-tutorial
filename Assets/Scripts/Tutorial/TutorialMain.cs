@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 
@@ -32,6 +33,8 @@ public class TutorialMain : MonoBehaviour {
 
         yield return CoroutineHelper.WaitForEnroll("001");
 
+        SceneManager.LoadScene("stage2");
+        
         yield return null;
     }
 }
