@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class EnrolmentUI : MonoBehaviour {
     public SubjectRow subjectResultRowExample;
@@ -24,13 +25,41 @@ public class EnrolmentUI : MonoBehaviour {
 
         Setup(exampleSubjects);
     }
+
+    public void Search(string code, string name)
+    {
+        IEnumerable<Subject> query = subjects;
+        if (code != "") {
+            query = query.Where(subject => subject.code == code);
+        }
+        if (name != "") {
+            query = query.Where(subject => subject.name.Contains(name));
+        }
+        
+        ShowSubjects(query.ToList());
+    }
+
     public void Setup(List<Subject> subjectsInput) {
         this.subjects = subjectsInput;
         foreach(var subject in subjectsInput) {
             EnrolmentSingleton.Instance.DB.Set(subject, maxEnrolment: 20);    
         }
 
-        foreach(var subject in subjects) {
+        ShowSubjects(subjects);
+    }
+    
+    private void ShowSubjects(List<Subject> subjects)
+    {
+        foreach (Transform child in subjectRowParent.transform)
+        {
+            if (child.gameObject != subjectResultRowExample.gameObject)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        foreach(var subject in subjects)
+        {
             var row = Instantiate<SubjectRow>(subjectResultRowExample);
             row.transform.SetParent(subjectRowParent.transform);
             row.Setup(subject);

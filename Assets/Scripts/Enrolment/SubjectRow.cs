@@ -10,12 +10,6 @@ public class SubjectRow : MonoBehaviour {
     public Text maxEnrolment;
     public Text currentEnrolment;
     
-    private void Awake() {
-        // code.text = category.text = department.text
-        //  = name.text = maxEnrolment.text
-        //  = currentEnrolment.text = "EMPTY";
-    }
-    
     public void Setup(Subject subject) {
         code.text = subject.code;
         category.text = subject.category.ToString();

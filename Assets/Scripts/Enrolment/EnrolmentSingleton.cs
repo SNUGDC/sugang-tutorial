@@ -15,6 +15,9 @@ public class EnrolmentSingleton {
             instance = value;
         }
     }
-    
+
     public EnrolmentDB DB = new EnrolmentDB();
+    public EnrolmentUI FindEnrolmentUI() {
+        return GameObject.FindObjectOfType<EnrolmentUI>();
+    }
 }
