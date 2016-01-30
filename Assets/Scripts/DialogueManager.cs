@@ -9,9 +9,11 @@ public class Dialogue
 {
     public string name { get; private set; }
     public string text { get; private set; }
-    public Dialogue(string name, string text)
+    public int expression { get; private set; }
+    public Dialogue(string name, string text, int expression = 0)
     {
         this.name = name; this.text = text;
+        this.expression = expression;
     }
 }
 
@@ -106,7 +108,7 @@ public class DialogueManager : MonoBehaviour
         }
         Dialogue nextLine = dialogues[nextDialogueIndex];
         nameText.text = nextLine.name;
-        personImage.sprite = characterInfoList.Find(x => (x.name == nextLine.name)).sprites[0];
+        personImage.sprite = characterInfoList.Find(x => (x.name == nextLine.name)).sprites[nextLine.expression];
         isTyping = true;
         StartCoroutine(typingEffect(talkText, nextLine.text, 0.1f));
         nextDialogueIndex++;
@@ -135,6 +137,10 @@ public class DialogueManager : MonoBehaviour
     public Dialogue stringToDialogue(string line)
     {
         string[] lineData = line.ToString().Split(':');
-        return new Dialogue(lineData[0], lineData[1]);
+        string[] personData = lineData[0].Split('(',')');
+        if (personData.Length == 1)
+            return new Dialogue(lineData[0], lineData[1]);
+        else
+            return new Dialogue(personData[0], lineData[1], int.Parse(personData[1]));
     }
 }
