@@ -55,7 +55,7 @@ public class DialogueManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown("space") && !isTyping && spaceButtonEnabled)
+        if ((Input.GetKeyDown("space") || Input.GetKeyDown("z")) && !isTyping && spaceButtonEnabled)
         {
             gotoNextDialogue();
         }
