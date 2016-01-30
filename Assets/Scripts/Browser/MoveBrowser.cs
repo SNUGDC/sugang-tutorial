@@ -17,7 +17,6 @@ public class MoveBrowser : MonoBehaviour
     {
         if (Input.GetButtonUp("Fire1"))
         {
-            Debug.Log("mouseup");
             StopAllCoroutines();
         }   
     }

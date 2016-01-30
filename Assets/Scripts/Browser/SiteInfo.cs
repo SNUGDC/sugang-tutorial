@@ -12,7 +12,7 @@ public static class SiteInfo
     public static int Search(string addressStr)
     {   
         if (!sites.ContainsKey(addressStr))
-            return -1;
+            return 0;
         
         return sites[addressStr];
     }
