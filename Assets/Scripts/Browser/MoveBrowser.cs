@@ -35,7 +35,6 @@ public class MoveBrowser : MonoBehaviour
         
         while (true)
         {
-            Debug.Log(multiplier);
             Vector2 deltaPos = (Input.mousePosition - prevPos) * multiplier;
             ClampAnchor(browser, deltaPos);
             prevPos = Input.mousePosition;
@@ -46,8 +45,6 @@ public class MoveBrowser : MonoBehaviour
     void ClampAnchor(RectTransform target, Vector2 delta)
     {
         Vector2 prevPos = target.anchoredPosition;
-        Debug.Log(prevPos.y + delta.y);
-        Debug.Log(prevPos.x + delta.x);
         float newX = prevPos.x + delta.x;
         float newY = prevPos.y + delta.y;
         newX = Mathf.Clamp(newX, -maxX, maxX);
