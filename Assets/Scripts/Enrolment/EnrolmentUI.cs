@@ -10,6 +10,7 @@ public class EnrolmentUI : MonoBehaviour {
 
     // example data.
     private List<Subject> subjects = new List<Subject>();
+
     private Subject selectedSubject = null;
     
     private void Start() {
@@ -43,6 +44,11 @@ public class EnrolmentUI : MonoBehaviour {
     {
         selectedSubject = subjects.Where(subject => subject.code == code).First();
         Debug.Log("Select : " + selectedSubject.name); 
+    }
+
+    public void OnEnRoll()
+    {
+        Debug.Log("EnRolled");
     }
 
     public void Search(string code, string name)
