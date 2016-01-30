@@ -9,7 +9,7 @@ public class TutorialMain : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        dialogueManager = GameObject.FindObjectOfType<DialogueManager>(); 
+      //  dialogueManager = GameObject.FindObjectOfType<DialogueManager>(); 
 	    StartCoroutine(Logic());
 	}
     

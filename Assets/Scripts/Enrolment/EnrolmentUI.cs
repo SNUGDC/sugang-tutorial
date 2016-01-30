@@ -4,19 +4,35 @@ using System.Linq;
 using System;
 using UnityEngine.UI;
 
-public class EnrolmentUI : MonoBehaviour {
+public class EnrolmentUI : MonoBehaviour
+{
+    public enum State
+    {
+        SearchWindow, InterestWindow
+    }
+    public State windowState;
+    public void setStateToSearch() {
+        windowState = State.SearchWindow;
+        Setup(exampleSubjects);
+    }
+    public void setStateToInterest() {
+        windowState = State.InterestWindow;
+        Setup(EnrolmentSingleton.Instance.interestSubjects);
+    }
+    
     public SubjectRow subjectResultRowExample;
     public GameObject subjectRowParent;
 
     // example data.
     private List<Subject> subjects = new List<Subject>();
+    private List<Subject> exampleSubjects;
 
     private Subject selectedSubject = null;
 
     public event Action<Subject> OnEnrollEvent = (s) => {};
 
     private void Start() {
-        List<Subject> exampleSubjects = new List<Subject> {
+        exampleSubjects = new List<Subject> {
             newSubject(code: "001", name: "Programming Language", department: "itct"),
             newSubject(code: "002", name: "Let's make game.", department: "itct"),
             newSubject(code: "003", name: "Let's make game.", department: "itct"),
@@ -78,6 +94,37 @@ public class EnrolmentUI : MonoBehaviour {
                     noButtonText: "Cancel",
                     onClickNo: () => {});
             }
+        }
+    }
+    public void OnEnrollInterest()
+    {
+        var interestSubjects = EnrolmentSingleton.Instance.interestSubjects;
+        Debug.Log("Enrolled interest");
+        
+        if (selectedSubject == null)
+        {
+            CommonPopupOpener.Open("ERROR",
+                firstLine: "과목이 선택되지 않았습니다.",
+                secondLine: "",
+                yesButtonText: "OK",
+                onClickYes: () => {},
+                noButtonText: "Cancel",
+                onClickNo: () => {});
+        }
+        else if (interestSubjects.Contains(selectedSubject))
+        {
+            CommonPopupOpener.Open("ERROR",
+                firstLine: "이미 관심강좌에",
+                secondLine: "등록되어 있습니다.",
+                yesButtonText: "OK",
+                onClickYes: () => {},
+                noButtonText: "Cancel",
+                onClickNo: () => {});
+        }
+        else
+        {
+            CommonPopupOpener.OpenSimpleSuccessPopup("성공", ()=>{}, ()=>{});
+            interestSubjects.Add(selectedSubject);
         }
     }
 

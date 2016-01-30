@@ -31,14 +31,6 @@ public class SemesterMain11 : StateBehaviour
         Initialize<States>();
         ChangeState(States.ApplyingClasses);
     }
-    void Start()
-    {
-        
-    }
-    private void logic()
-    {
-        
-    }
     private void ApplyingClasses_Start()
     {
         CommonPopupOpener.Open(

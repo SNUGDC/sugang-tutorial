@@ -8,6 +8,10 @@ public class EnrolmentDB {
     }
     
     public void Set(Subject subject, int maxEnrolment) {
+        if (datas.ContainsKey(subject.code))
+        {
+            return;
+        }
         datas.Add(subject.code, new EnrolmentData(maxEnrolment));
     }
 }
