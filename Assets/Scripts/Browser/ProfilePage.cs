@@ -5,8 +5,19 @@ public class ProfilePage : MonoBehaviour
 {
     public Text summaryText;
     public Text detailedText;
-    MyUnivData playerData;
+    Savefile playerData = SaveManager.currentSavefile;
     
+    void OnEnable()
+    {
+        try
+        {
+            ShowInfo();
+        }
+        catch
+        {
+            
+        }
+    }
     void ShowInfo()
     {
         string major1Name = playerData.major;
@@ -23,7 +34,7 @@ public class ProfilePage : MonoBehaviour
         int totalUnit = 0;
         bool is2Majored = string.IsNullOrEmpty(playerData.secondaryMajor);
         
-        foreach (Subject item in playerData.finishedSubjects)
+        foreach (Subject item in playerData.succeededSubjects)
         {
             int category = (int)item.category;
             
