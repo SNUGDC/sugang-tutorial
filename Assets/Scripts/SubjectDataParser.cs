@@ -4,10 +4,9 @@ using System.Collections.Generic;
 
 public class SubjectDataParser : MonoBehaviour 
 {
-    public TextAsset subjectData;
-
-    public List<Subject> Parse()
+    public static List<Subject> Parse(string fileName = "2016_1")
     {
+        TextAsset subjectData = Resources.Load(fileName) as TextAsset;
         List<Subject> subjectList = new List<Subject>();
         string src = subjectData.text;
         string[] lines = src.Split(new [] { '\r', '\n' });
