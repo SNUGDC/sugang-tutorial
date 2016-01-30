@@ -445,10 +445,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1280, y: 720}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -851,6 +851,30 @@ Prefab:
     - target: {fileID: 22413890, guid: 8c94b1b1df7c141e7a99fe3dfd3df017, type: 2}
       propertyPath: m_Pivot.y
       value: 0.50000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403886, guid: 8c94b1b1df7c141e7a99fe3dfd3df017, type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403886, guid: 8c94b1b1df7c141e7a99fe3dfd3df017, type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403886, guid: 8c94b1b1df7c141e7a99fe3dfd3df017, type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431426, guid: 8c94b1b1df7c141e7a99fe3dfd3df017, type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431426, guid: 8c94b1b1df7c141e7a99fe3dfd3df017, type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431426, guid: 8c94b1b1df7c141e7a99fe3dfd3df017, type: 2}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8c94b1b1df7c141e7a99fe3dfd3df017, type: 2}
