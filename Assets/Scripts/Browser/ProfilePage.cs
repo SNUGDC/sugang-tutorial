@@ -3,14 +3,22 @@ using UnityEngine.UI;
 
 public class ProfilePage : MonoBehaviour 
 {
-    public Text SummaryText;
-    public Text Major1Text;
-    public Text Major2Text;
-    public Text LibArtText;
-    public Text NormalText;
-    MyUnivData playerData;
+    public Text summaryText;
+    public Text detailedText;
+    Savefile playerData = SaveManager.currentSavefile;
     
     void OnEnable()
+    {
+        try
+        {
+            ShowInfo();
+        }
+        catch
+        {
+            
+        }
+    }
+    void ShowInfo()
     {
         string major1Name = playerData.major;
         string major2Name = playerData.secondaryMajor;
@@ -26,7 +34,7 @@ public class ProfilePage : MonoBehaviour
         int totalUnit = 0;
         bool is2Majored = string.IsNullOrEmpty(playerData.secondaryMajor);
         
-        foreach (Subject item in playerData.finishedSubjects)
+        foreach (Subject item in playerData.succeededSubjects)
         {
             int category = (int)item.category;
             
@@ -57,6 +65,9 @@ public class ProfilePage : MonoBehaviour
             summaryStr += "제2전공 - " + major2Unit.ToString() + "학점, ";
         summaryStr += "교양 - " + libArtUnit.ToString() + "학점, ";
         summaryStr += "총 " + totalUnit.ToString() + "학점";
-        string res = major1Str + major2Str + libArtStr + normalStr;
+        string detailedStr = major1Str + major2Str + libArtStr + normalStr;
+        
+        summaryText.text = summaryStr;
+        detailedText.text = detailedStr;
     }
 }

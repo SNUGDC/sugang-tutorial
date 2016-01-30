@@ -8,25 +8,42 @@ public class Savefile
     public int currentLevel;
     public int succeededUnits;
     public List<Subject> succeededSubjects;
+    public List<Subject> requisiteSubjects;
+    public string major;
+    public string secondaryMajor;
+    public Savefile()
+    {
+        succeededSubjects = new List<Subject>();
+        requisiteSubjects = new List<Subject>();
+    }
 }
 
-public class SaveManager : MonoBehaviour
+public static class SaveManager
 {
-    private JsonWriter jsonWriter;
-    private StringBuilder jsonString;
-    public Savefile currentSavefile;
+    private static JsonWriter jsonWriter;
+    private static StringBuilder jsonString;
+    public static Savefile currentSavefile;
     
-    void Start()
+    public static void Initialize()
     {
         jsonString = new StringBuilder();
         jsonWriter = new JsonWriter(jsonString);
     }
-    public void save(Savefile savefile)
+    public static void NewData()
+    {
+        currentSavefile = new Savefile();
+    }
+    public static void Save(Savefile savefile)
     {
         JsonMapper.ToJson(savefile, jsonWriter);
         PlayerPrefs.SetString("save", jsonString.ToString());
     }
-    public void load()
+    public static void SaveCurrent()
+    {
+        Save(currentSavefile);
+    }
+    
+    public static void Load()
     {
         if (PlayerPrefs.HasKey("save"))
             currentSavefile = JsonMapper.ToObject<Savefile>(PlayerPrefs.GetString("save"));
