@@ -12,6 +12,7 @@ public class IntroManager : StateBehaviour
         GiveUp
     }
 
+    private AudioSource audioSource;
     public DialogueManager dialogueManager;
     public GameObject sugangTerrorImage;
     public IntroTimer introTimer;
@@ -22,6 +23,11 @@ public class IntroManager : StateBehaviour
     {
         Initialize<States>();
         ChangeState(States.Init);
+    }
+    
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
     }
     private void Init_Enter()
     {
@@ -55,7 +61,7 @@ public class IntroManager : StateBehaviour
         {
             ChangeState(States.GiveUp);
         }
-        if (Input.GetKeyDown("f5") || Input.GetKeyDown("r"))
+        if (Input.GetKeyDown("f5"))
         {
             Debug.Log("f5 pressed!");
             dialogueManager.stopDialogue();
@@ -66,6 +72,7 @@ public class IntroManager : StateBehaviour
     {
         Debug.Log("Entered ActivateTrap!");
         sugangTerrorImage.SetActive(true);
+        audioSource.Play();
         introTimer.isRunning = true;
         yield return new WaitForSeconds(3.0f);
         introTimer.isRunning = false;
