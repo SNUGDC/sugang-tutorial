@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class TabControl : MonoBehaviour 
+public class TabControl : MonoBehaviour
 {
     public int order;
     public delegate void CallBack(int order);
@@ -14,7 +14,6 @@ public class TabControl : MonoBehaviour
     
     public void OpenThis()
     {
-        Initialize();
         ActivateThis();
     }
     public void CloseThis()
@@ -33,11 +32,6 @@ public class TabControl : MonoBehaviour
     }
     
     public void OpenAddress(string address)
-    {
-        
-    }
-    
-    public void Initialize()
     {
         
     }

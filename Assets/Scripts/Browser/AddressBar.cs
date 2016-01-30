@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class AddressBar : MonoBehaviour 
+public class AddressBar : MonoBehaviour
 {
     public InputField inputField;
     public GameObject[] sites;
+    public Text tabTitle;
     
     void Start()
     {
         InactiveAll();
     }
     
+    bool isFocusedLastFrame = false;
+    
     void Update()
     {
-        if (inputField.isFocused && Input.GetKeyDown(KeyCode.Return))
+        if (inputField.isFocused)
+            isFocusedLastFrame = true;
+        if (isFocusedLastFrame && Input.GetKeyDown(KeyCode.Return))
             SubmitAddress();
+        
+        isFocusedLastFrame = inputField.isFocused;
     }
 	
     void SubmitAddress()
@@ -44,6 +51,18 @@ public class AddressBar : MonoBehaviour
     {
         InactiveAll();
         sites[siteIndex].SetActive(true);
+        switch (siteIndex)
+        {
+            case 0:
+                tabTitle.text = "페이지를 찾을 수 없음";
+            break;
+            case 1:
+                tabTitle.text = "서울대학교 수강신청";
+            break;
+            case 2:
+                tabTitle.text = "서울대학교 포털";
+            break;
+        }
     }
     
     void InactiveAll()
@@ -53,5 +72,12 @@ public class AddressBar : MonoBehaviour
             if (sites[i] != null)
                 sites[i].SetActive(false);    
         }
+    }
+    
+    public void OnEnable()
+    {
+        inputField.text = "";
+        tabTitle.text = "새 탭";
+        InactiveAll();
     }
 }

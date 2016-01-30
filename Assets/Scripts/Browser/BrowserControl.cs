@@ -17,7 +17,6 @@ public class BrowserControl : MonoBehaviour
        
 	   foreach (TabControl tab in tabs)
        {
-           tab.Initialize();
            tab.Activating += ActivateTab;
            tab.Closing += CloseTab;
            
