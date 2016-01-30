@@ -9,7 +9,7 @@ public class SubjectRow : MonoBehaviour {
     public Text name;
     public Text maxEnrolment;
     public Text currentEnrolment;
-    
+
     public void Setup(Subject subject) {
         code.text = subject.code;
         category.text = subject.category.ToString();

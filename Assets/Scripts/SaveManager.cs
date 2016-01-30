@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.Text;
 using LitJson;
 
@@ -6,35 +7,30 @@ public class Savefile
 {
     public int currentLevel;
     public int succeededUnits;
+    public List<Subject> succeededSubjects;
 }
 
 public class SaveManager : MonoBehaviour
 {
-    public TextAsset jsonFile;
-    private JsonReader jsonReader;
     private JsonWriter jsonWriter;
+    private StringBuilder jsonString;
     public Savefile currentSavefile;
     
     void Start()
     {
-        jsonReader = new JsonReader(jsonFile.text);
-        
-        /*
-        StringBuilder sb = new StringBuilder();
-        jsonWriter = new JsonWriter(sb);
-        
-        jsonWriter.WriteObjectStart();
-        */
+        jsonString = new StringBuilder();
+        jsonWriter = new JsonWriter(jsonString);
     }
     public void save(Savefile savefile)
     {
-        
+        JsonMapper.ToJson(savefile, jsonWriter);
+        PlayerPrefs.SetString("save", jsonString.ToString());
     }
     public void load()
     {
-        JsonData jsonObject = JsonMapper.ToObject(jsonReader);
-        currentSavefile = new Savefile();
-        currentSavefile.currentLevel = int.Parse((string)jsonObject["currentLevel"]);
-        currentSavefile.succeededUnits = int.Parse((string)jsonObject["succeededUnits"]);
+        if (PlayerPrefs.HasKey("save"))
+            currentSavefile = JsonMapper.ToObject<Savefile>(PlayerPrefs.GetString("save"));
+        else
+            Debug.Log("Cannot find save file!");
     }
 }
