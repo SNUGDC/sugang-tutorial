@@ -10,10 +10,12 @@ public class TabControl : MonoBehaviour
     public ColorBlock activeColor;
     public ColorBlock inactiveColor;
     public Button barButton;
+    public Text tabBarText;
     
     public void OpenThis()
     {
         Initialize();
+        ActivateThis();
     }
     public void CloseThis()
     {
