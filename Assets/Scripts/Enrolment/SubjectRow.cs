@@ -18,5 +18,8 @@ public class SubjectRow : MonoBehaviour {
         var enrolmentData = EnrolmentSingleton.Instance.DB.GetEnrolment(subject);
         maxEnrolment.text = enrolmentData.MaxEnrolment.ToString();
         currentEnrolment.text = enrolmentData.CurrentEnrolment.ToString();
+
+        var toggleGroup = transform.parent.GetComponent<ToggleGroup>();
+        // toggleGroup.RegisterToggle(GetComponent<Toggle>());
     }
 }

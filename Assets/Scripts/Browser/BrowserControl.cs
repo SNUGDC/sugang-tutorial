@@ -10,7 +10,7 @@ public class BrowserControl : MonoBehaviour
     Queue<TabControl> closedTabs;
     int maxTabNumber = 3;
     
-	void Start()
+	void OnEnable()
     {
        openedTabs = new List<TabControl>();
        closedTabs = new Queue<TabControl>();
@@ -24,6 +24,11 @@ public class BrowserControl : MonoBehaviour
                openedTabs.Add(tab);
            else
                closedTabs.Enqueue(tab);
+       }
+       
+       if (openedTabs.Count == 0)
+       {
+           OpenNewTab();
        }
        ReallocateOrder();
 	}
