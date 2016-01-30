@@ -77,8 +77,9 @@ public class DialogueManager : MonoBehaviour
         gameObject.SetActive(true);
         gotoNextDialogue();
     }
-    private void stopDialogue()
+    public void stopDialogue()
     {
+        isTyping = false;
         gameObject.SetActive(false);
     }
     public void gotoNextDialogue()

@@ -1,47 +1,75 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MonsterLove.StateMachine;
 
-public class IntroManager : MonoBehaviour
+public class IntroManager : StateBehaviour
 {
+    public enum States
+    {
+        Init,
+        WaitForInput,
+        ActivateTrap,
+        GiveUp
+    }
+
     public DialogueManager dialogueManager;
     private bool waitingForInput = false;
-    
-    void Start()
+
+    void Awake()
     {
-        StartCoroutine(waitForInput());
+        Initialize<States>();
+        ChangeState(States.Init);
     }
-    void Update()
+    private void Init_Enter()
     {
-        if (!waitingForInput && !dialogueManager.isRunning())
+        Debug.Log("Entered Init!");
+    }
+    private void Init_Update()
+    {
+        if (!dialogueManager.isRunning())
         {
-            StartCoroutine(waitForInput());
-            waitingForInput = true;
-        }
-        if (Input.GetKeyDown("f5") && waitingForInput)
-        {
-            dialogueManager.loadDialogue("dialogue-0-1");
-            dialogueManager.spaceButtonEnabled = true;
-            dialogueManager.xButtonEnabled = true;
-            dialogueManager.startDialogue();
-            waitingForInput = false;
+            ChangeState(States.WaitForInput);
         }
     }
-    private IEnumerator waitForInput()
+    private IEnumerator WaitForInput_Enter()
     {
+        Debug.Log("Entered WaitForInput!");
         yield return new WaitForSeconds(5.0f);
-        if (!waitingForInput) yield break;
         dialogueManager.loadDialogue("dialogue-0-2");
         dialogueManager.spaceButtonEnabled = false;
         dialogueManager.xButtonEnabled = false;
         dialogueManager.startDialogue();
         yield return new WaitForSeconds(5.0f);
-        if (!waitingForInput) yield break;
         dialogueManager.gotoNextDialogue();
         yield return new WaitForSeconds(5.0f);
-        if (!waitingForInput) yield break;
         dialogueManager.gotoNextDialogue();
         yield return new WaitForSeconds(5.0f);
-        if (!waitingForInput) yield break;
+        dialogueManager.stopDialogue();
+    }
+    private void WaitForInput_FixedUpdate()
+    {
+        if (!dialogueManager.isRunning())
+        {
+            ChangeState(States.GiveUp);
+        }
+        if (Input.GetKeyDown("f5") || Input.GetKeyDown("r"))
+        {
+            Debug.Log("f5 pressed!");
+            dialogueManager.stopDialogue();
+            ChangeState(States.ActivateTrap, StateTransition.Overwrite);
+        }
+    }
+    private void ActivateTrap_Enter()
+    {
+        Debug.Log("Entered ActivateTrap!");
+        dialogueManager.loadDialogue("dialogue-0-1");
+        dialogueManager.spaceButtonEnabled = true;
+        dialogueManager.xButtonEnabled = true;
+        dialogueManager.startDialogue();
+    }
+    private void GiveUp_Enter()
+    {
+        Debug.Log("Entered GiveUp!");
         dialogueManager.loadDialogue("dialogue-0-3");
         dialogueManager.spaceButtonEnabled = true;
         dialogueManager.xButtonEnabled = true;
