@@ -79,6 +79,7 @@ public class DialogueManager : MonoBehaviour
     }
     public void stopDialogue()
     {
+        isTyping = false;
         gameObject.SetActive(false);
     }
     public void gotoNextDialogue()

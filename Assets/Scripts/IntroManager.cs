@@ -55,6 +55,7 @@ public class IntroManager : StateBehaviour
         if (Input.GetKeyDown("f5") || Input.GetKeyDown("r"))
         {
             Debug.Log("f5 pressed!");
+            dialogueManager.stopDialogue();
             ChangeState(States.ActivateTrap, StateTransition.Overwrite);
         }
     }
