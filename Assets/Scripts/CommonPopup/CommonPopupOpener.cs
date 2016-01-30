@@ -11,4 +11,28 @@ public class CommonPopupOpener : MonoBehaviour {
         var popupComponent = popup.GetComponent<CommonPopup>();
         popupComponent.Setup(title: title, firstLine: firstLine, secondLine: secondLine, yesClickText: yesButtonText, onClickYes: onClickYes, noButtonText: noButtonText, onClickNo: onClickNo);
     }
+
+    public static IEnumerator OpenCoroutine(string title, string firstLine, string secondLine, string yesButtonText, Action onClickYes, string noButtonText, Action onClickNo)
+    {
+        GameObject commonPopupPrefab = (GameObject)Resources.Load("CommonPopup");
+        GameObject popup = Instantiate<GameObject>(commonPopupPrefab);
+        
+        bool isClosed = false;
+
+        var popupComponent = popup.GetComponent<CommonPopup>();
+        popupComponent.Setup(title: title, firstLine: firstLine, secondLine: secondLine, yesClickText: yesButtonText,
+            onClickYes: () => {
+                onClickYes();
+                isClosed = true;
+            }, noButtonText: noButtonText,
+            onClickNo: () => {
+                onClickNo();
+                isClosed = true;
+            });
+
+        while(!isClosed)
+        {
+            yield return null;
+        }
+    }
 }
