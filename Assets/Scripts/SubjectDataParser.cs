@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-public class SubjectDataParser : MonoBehaviour 
+public class SubjectDataParser 
 {
     public static List<Subject> Parse(string fileName = "2016_1")
     {
@@ -39,8 +39,6 @@ public class SubjectDataParser : MonoBehaviour
                 newSubject.department = datas[1];
                 
                 newSubject.code = datas[3];
-                
-                newSubject.code = datas[4];
                 
                 newSubject.name = datas[5];
                 

@@ -32,20 +32,21 @@ public class EnrolmentUI : MonoBehaviour
     public event Action<Subject> OnEnrollEvent = (s) => {};
 
     private void Start() {
-        exampleSubjects = new List<Subject> {
-            newSubject(code: "001", name: "Programming Language", department: "itct"),
-            newSubject(code: "002", name: "Let's make game.", department: "itct"),
-            newSubject(code: "003", name: "Let's make game.", department: "itct"),
-            newSubject(code: "004", name: "Let's make game.", department: "itct"),
-            newSubject(code: "005", name: "Let's make game.", department: "itct"),
-            newSubject(code: "006", name: "Let's make game.", department: "itct"),
-            newSubject(code: "007", name: "Let's make game.", department: "itct"),
-            newSubject(code: "008", name: "Let's make game.", department: "itct"),
-            newSubject(code: "009", name: "Let's make game.", department: "itct"),
-            newSubject(code: "010", name: "Let's make game.", department: "itct")
-        };
+        // exampleSubjects = new List<Subject> {
+        //     newSubject(code: "001", name: "Programming Language", department: "itct"),
+        //     newSubject(code: "002", name: "대학국어", department: "itct"),
+        //     newSubject(code: "003", name: "대학영어", department: "itct"),
+        //     newSubject(code: "004", name: "공학수학", department: "itct"),
+        //     newSubject(code: "005", name: "프로그래밍 연습", department: "itct"),
+        //     newSubject(code: "006", name: "물리", department: "itct"),
+        //     newSubject(code: "007", name: "화학", department: "itct"),
+        //     newSubject(code: "008", name: "Let's make game.", department: "itct"),
+        //     newSubject(code: "009", name: "Let's make game.", department: "itct"),
+        //     newSubject(code: "010", name: "Let's make game.", department: "itct")
+        // };
 
-        Setup(exampleSubjects);
+        var subjects = SubjectDataParser.Parse();
+        Setup(subjects);
     }
 
     public void OnDeselectSubject(string code)
@@ -132,7 +133,7 @@ public class EnrolmentUI : MonoBehaviour
     {
         IEnumerable<Subject> query = subjects;
         if (code != "") {
-            query = query.Where(subject => subject.code == code);
+            query = query.Where(subject => subject.code.Contains(code));
         }
         if (name != "") {
             query = query.Where(subject => subject.name.Contains(name));
@@ -160,6 +161,7 @@ public class EnrolmentUI : MonoBehaviour
             }
         }
 
+        subjects = subjects.Take(100).ToList();
         foreach(var subject in subjects)
         {
             var row = Instantiate<SubjectRow>(subjectResultRowExample);
