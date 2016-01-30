@@ -13,6 +13,9 @@ public class IntroManager : StateBehaviour
     }
 
     public DialogueManager dialogueManager;
+    public GameObject sugangTerrorImage;
+    public IntroTimer introTimer;
+    
     private bool waitingForInput = false;
 
     void Awake()
@@ -59,17 +62,22 @@ public class IntroManager : StateBehaviour
             ChangeState(States.ActivateTrap, StateTransition.Overwrite);
         }
     }
-    private void ActivateTrap_Enter()
+    private IEnumerator ActivateTrap_Enter()
     {
         Debug.Log("Entered ActivateTrap!");
+        sugangTerrorImage.SetActive(true);
+        introTimer.isRunning = true;
+        yield return new WaitForSeconds(3.0f);
+        introTimer.isRunning = false;
         dialogueManager.loadDialogue("dialogue-0-1");
         dialogueManager.spaceButtonEnabled = true;
         dialogueManager.xButtonEnabled = true;
         dialogueManager.startDialogue();
     }
-    private void GiveUp_Enter()
+    private IEnumerator GiveUp_Enter()
     {
         Debug.Log("Entered GiveUp!");
+        yield return new WaitForSeconds(2.0f);
         dialogueManager.loadDialogue("dialogue-0-3");
         dialogueManager.spaceButtonEnabled = true;
         dialogueManager.xButtonEnabled = true;
