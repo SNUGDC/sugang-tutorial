@@ -11,7 +11,20 @@ public class TabControl : MonoBehaviour
     public ColorBlock inactiveColor;
     public Button barButton;
     public Text tabBarText;
-    
+
+    public EnrolmentUI enrolmentUIPrefab;
+    public GameObject enrolmentUIParent;
+    public AddressBar addressBar;
+
+    private void Awake()
+    {
+        var enrolmentUI = GameObject.Instantiate<EnrolmentUI>(enrolmentUIPrefab);
+        enrolmentUI.transform.SetParent(enrolmentUIParent.transform);
+        enrolmentUI.transform.localPosition = enrolmentUIPrefab.transform.localPosition;
+        enrolmentUI.transform.localScale = enrolmentUIPrefab.transform.localScale;
+        addressBar.sites[1] = enrolmentUI.gameObject;
+    }
+
     public void OpenThis()
     {
         ActivateThis();

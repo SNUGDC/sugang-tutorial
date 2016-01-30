@@ -4,12 +4,27 @@ using System.Collections.Generic;
 
 public class BrowserControl : MonoBehaviour 
 {
-    public TabControl[] tabs;
+    private List<TabControl> tabs;
+    public TabControl tabPrefab;
+    public GameObject tabParent;
     public GameObject newTab;
     List<TabControl> openedTabs;
     Queue<TabControl> closedTabs;
     int maxTabNumber = 3;
-    
+
+    void Awake()
+    {
+        tabs = new List<TabControl>();
+        tabs.Add(Instantiate<TabControl>(tabPrefab));
+        tabs.Add(Instantiate<TabControl>(tabPrefab));
+        tabs.Add(Instantiate<TabControl>(tabPrefab));
+        foreach(var tab in tabs)
+        {
+            tab.transform.SetParent(tabParent.transform);
+            tab.transform.localPosition = Vector3.zero;
+            tab.transform.localScale = Vector3.one;
+        }
+    }
 	void OnEnable()
     {
        openedTabs = new List<TabControl>();
