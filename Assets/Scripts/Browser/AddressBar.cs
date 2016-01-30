@@ -4,7 +4,12 @@ using UnityEngine.UI;
 public class AddressBar : MonoBehaviour 
 {
     public InputField inputField;
+    public GameObject[] sites;
     
+    void Start()
+    {
+        InactiveAll();
+    }
     
     void Update()
     {
@@ -37,6 +42,16 @@ public class AddressBar : MonoBehaviour
     
     void MoveToSite(int siteIndex)
     {
-        Debug.Log(siteIndex);
+        InactiveAll();
+        sites[siteIndex].SetActive(true);
+    }
+    
+    void InactiveAll()
+    {
+        for (int i=0; i<sites.Length; i++)
+        {
+            if (sites[i] != null)
+                sites[i].SetActive(false);    
+        }
     }
 }
