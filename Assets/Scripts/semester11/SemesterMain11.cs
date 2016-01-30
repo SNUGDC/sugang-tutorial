@@ -30,9 +30,11 @@ public class SemesterMain11 : StateBehaviour
     {
         Initialize<States>();
         ChangeState(States.ApplyingClasses);
+        Debug.Log("AwakeCalled");
     }
-    private void ApplyingClasses_Start()
+    private void ApplyingClasses_Enter()
     {
+        Debug.Log("ApplyingClasses_Start called");
         CommonPopupOpener.Open(
             title: "Lecture",
             firstLine: "sugang.snu.ac.kr 접속하기",
@@ -44,6 +46,7 @@ public class SemesterMain11 : StateBehaviour
     }
     private void ApplyingClasses_Update()
     {
+        Debug.Log("ApplyingClasses_Update called");
         if (!dialogueManager.isRunning() && nextState != States.ApplyingClasses)
         {
             ChangeState(nextState);
