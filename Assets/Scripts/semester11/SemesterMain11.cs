@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 using MonsterLove.StateMachine;
 
 public class SemesterMain11 : StateBehaviour
@@ -19,11 +20,26 @@ public class SemesterMain11 : StateBehaviour
     
     //[HideInInspector]
     public States nextState = States.ApplyingClasses;
+    public bool savedClasses = false;
+    
+    public List<Subject> requiredSubjectList = new List<Subject> {
+    };
     
     void Awake()
     {
         Initialize<States>();
         ChangeState(States.ApplyingClasses);
+    }
+    private void ApplyingClasses_Start()
+    {
+        CommonPopupOpener.Open(
+            title: "Lecture",
+            firstLine: "sugang.snu.ac.kr 접속하기",
+            secondLine: "수강편람에 있는 데로 신청하기",
+            yesButtonText: "",
+            onClickYes: () => {},
+            noButtonText: "",
+            onClickNo: () => {});
     }
     private void ApplyingClasses_Update()
     {
@@ -39,14 +55,14 @@ public class SemesterMain11 : StateBehaviour
     }
     private void SearchedByClassName_Update()
     {
-        if (!dialogueManager.isRunning())
+        if (!dialogueManager.isRunning() && savedClasses)
         {
             ChangeState(States.AfterSearchedByClassName);
         }
     }
     private void AfterSearchedByClassName_Enter()
     {
-        dialogueManager.loadDialogue("dialogue-2-1-2");
+        dialogueManager.loadDialogue("dialogue-2-1-1");
         dialogueManager.startDialogue();
     }
     private void AfterSearchedByClassName_Update()
@@ -63,7 +79,7 @@ public class SemesterMain11 : StateBehaviour
     }
     private void SearchedByNumber_Update()
     {
-        if (!dialogueManager.isRunning())
+        if (!dialogueManager.isRunning() && savedClasses)
         {
             ChangeState(States.AfterSearchedByNumber);
         }
