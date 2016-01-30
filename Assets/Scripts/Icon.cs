@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
+
 
 public class Icon : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class Icon : MonoBehaviour
     
     float doubleClickStart = 0;
     public bool isSelected = false;
+    
+    public UnityEvent buttonDoubleClickEvent;
     
     void Start()
     {
@@ -41,5 +45,6 @@ public class Icon : MonoBehaviour
     void OnDoubleClick()
     {
         Debug.Log("Double clicked!");
+        buttonDoubleClickEvent.Invoke();
     }
 }
