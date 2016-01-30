@@ -8,4 +8,5 @@ public class MyUnivData
     public string major;
     public string secondaryMajor;
     public List<Subject> finishedSubjects;
+    public List<Subject> requisiteSubjects;
 }
