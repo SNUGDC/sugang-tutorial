@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using MonsterLove.StateMachine;
@@ -28,6 +29,15 @@ public class SemesterMain11 : StateBehaviour
     
     void Awake()
     {
+        StageSingleton.resetSingleton();
+        StageSingleton.instance.SetCurrentTime(new DateTime(
+            year: 2009,
+            month: 1,
+            day: 29,
+            hour: 6,
+            minute: 59,
+            second: 50
+        ));
         Initialize<States>();
         ChangeState(States.ApplyingClasses);
         Debug.Log("AwakeCalled");
@@ -46,7 +56,6 @@ public class SemesterMain11 : StateBehaviour
     }
     private void ApplyingClasses_Update()
     {
-        Debug.Log("ApplyingClasses_Update called");
         if (!dialogueManager.isRunning() && nextState != States.ApplyingClasses)
         {
             ChangeState(nextState);
