@@ -12,10 +12,12 @@ public class EnrolmentUI : MonoBehaviour {
     private List<Subject> subjects = new List<Subject>();
 
     private Subject selectedSubject = null;
-    
+
+    public event Action<Subject> OnEnrollEvent = (s) => {};
+
     private void Start() {
         List<Subject> exampleSubjects = new List<Subject> {
-            newSubject(code: "001", name: "Let's make game.", department: "itct"),
+            newSubject(code: "001", name: "Programming Language", department: "itct"),
             newSubject(code: "002", name: "Let's make game.", department: "itct"),
             newSubject(code: "003", name: "Let's make game.", department: "itct"),
             newSubject(code: "004", name: "Let's make game.", department: "itct"),
@@ -49,25 +51,33 @@ public class EnrolmentUI : MonoBehaviour {
     public void OnEnRoll()
     {
         Debug.Log("EnRolled");
-        if (selectedSubject == null)
+
+        if (OnEnrollEvent != null)
         {
-            CommonPopupOpener.Open("ERROR",
-                firstLine: "과목이 선택되지 않았습니다.",
-                secondLine: "",
-                yesButtonText: "OK",
-                onClickYes: () => {},
-                noButtonText: "Cancel",
-                onClickNo: () => {});
+            OnEnrollEvent.Invoke(selectedSubject);
         }
         else
         {
-            CommonPopupOpener.Open("ERROR",
-                firstLine: "수강 신청 기간이 아닙니다.",
-                secondLine: "",
-                yesButtonText: "OK",
-                onClickYes: () => {},
-                noButtonText: "Cancel",
-                onClickNo: () => {});
+            if (selectedSubject == null)
+            {
+                CommonPopupOpener.Open("ERROR",
+                    firstLine: "과목이 선택되지 않았습니다.",
+                    secondLine: "",
+                    yesButtonText: "OK",
+                    onClickYes: () => {},
+                    noButtonText: "Cancel",
+                    onClickNo: () => {});
+            }
+            else
+            {
+                CommonPopupOpener.Open("ERROR",
+                    firstLine: "수강 신청 기간이 아닙니다.",
+                    secondLine: "",
+                    yesButtonText: "OK",
+                    onClickYes: () => {},
+                    noButtonText: "Cancel",
+                    onClickNo: () => {});
+            }
         }
     }
 
