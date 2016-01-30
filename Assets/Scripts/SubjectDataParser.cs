@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class SubjectDataParser : MonoBehaviour 
 {
     public TextAsset subjectData;
-    
+
     public List<Subject> Parse()
     {
         List<Subject> subjectList = new List<Subject>();
         string src = subjectData.text;
-        string[] lines = src.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+        string[] lines = src.Split(new [] { '\r', '\n' });
         
         for (int i=0; i<lines.Length; i++)
         {
