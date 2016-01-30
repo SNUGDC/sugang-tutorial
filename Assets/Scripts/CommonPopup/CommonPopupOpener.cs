@@ -44,7 +44,7 @@ public class CommonPopupOpener : MonoBehaviour {
             secondLine: "",
             yesButtonText: "OK",
             onClickYes: () => {},
-            noButtonText: "Cancel",
+            noButtonText: "",
             onClickNo: () => {}
         );
     }
@@ -57,7 +57,7 @@ public class CommonPopupOpener : MonoBehaviour {
             secondLine: "",
             yesButtonText: "OK",
             onClickYes: onClickYes,
-            noButtonText: "Cancel",
+            noButtonText: "",
             onClickNo: onClickNo
         );
     }
@@ -70,7 +70,7 @@ public class CommonPopupOpener : MonoBehaviour {
             secondLine: "",
             yesButtonText: "OK",
             onClickYes: () => {},
-            noButtonText: "Cancel",
+            noButtonText: "",
             onClickNo: () => {}
         );
     }

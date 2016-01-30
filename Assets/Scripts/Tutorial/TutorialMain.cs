@@ -23,11 +23,11 @@ public class TutorialMain : MonoBehaviour {
 
         CommonPopupOpener.Open(
             title: "Lecture",
-            firstLine: "PL",
-            secondLine: "Understanding of Game",
-            yesButtonText: "Yes",
+            firstLine: "sugang.snu.ac.kr 접속하기",
+            secondLine: "Programming 수업수강신청하기",
+            yesButtonText: "",
             onClickYes: () => {},
-            noButtonText: "No",
+            noButtonText: "",
             onClickNo: () => {});
 
         yield return WaitForEnRoll();
