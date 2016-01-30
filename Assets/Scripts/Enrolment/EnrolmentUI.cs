@@ -49,6 +49,26 @@ public class EnrolmentUI : MonoBehaviour {
     public void OnEnRoll()
     {
         Debug.Log("EnRolled");
+        if (selectedSubject == null)
+        {
+            CommonPopupOpener.Open("ERROR",
+                firstLine: "과목이 선택되지 않았습니다.",
+                secondLine: "",
+                yesButtonText: "OK",
+                onClickYes: () => {},
+                noButtonText: "Cancel",
+                onClickNo: () => {});
+        }
+        else
+        {
+            CommonPopupOpener.Open("ERROR",
+                firstLine: "수강 신청 기간이 아닙니다.",
+                secondLine: "",
+                yesButtonText: "OK",
+                onClickYes: () => {},
+                noButtonText: "Cancel",
+                onClickNo: () => {});
+        }
     }
 
     public void Search(string code, string name)

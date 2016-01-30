@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System;
 
-public class SubjectRowSelectable : MonoBehaviour, IDeselectHandler, ISelectHandler
+public class SubjectRowSelectable : MonoBehaviour
 {
     private SubjectRow subjectRow;
     private void Start()
@@ -13,12 +13,25 @@ public class SubjectRowSelectable : MonoBehaviour, IDeselectHandler, ISelectHand
         subjectRow = transform.parent.GetComponent<SubjectRow>();
     }
 
-    public void OnDeselect(BaseEventData eventData)
+    public bool ToggleValue {
+        set {
+            if (value)
+            {
+                OnSelect();
+            }
+            else
+            {
+                OnDeselect();
+            }
+        }
+    }
+
+    public void OnDeselect()
     {
         EnrolmentSingleton.Instance.FindEnrolmentUI().OnDeselectSubject(subjectRow.code.text);
     }
 
-    public void OnSelect(BaseEventData eventData)
+    public void OnSelect()
     {
         EnrolmentSingleton.Instance.FindEnrolmentUI().OnSelectSubject(subjectRow.code.text);
     }
