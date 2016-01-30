@@ -211,6 +211,18 @@ Prefab:
       propertyPath: desktopManager
       value: 
       objectReference: {fileID: 88831109}
+    - target: {fileID: 11437738, guid: aad404dc3a12049a384ba90eb54545e2, type: 2}
+      propertyPath: buttonDoubleClickEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11437738, guid: aad404dc3a12049a384ba90eb54545e2, type: 2}
+      propertyPath: buttonDoubleClickEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11437738, guid: aad404dc3a12049a384ba90eb54545e2, type: 2}
+      propertyPath: buttonDoubleClickEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aad404dc3a12049a384ba90eb54545e2, type: 2}
   m_IsPrefabParent: 0
@@ -424,6 +436,7 @@ MonoBehaviour:
   dialogueManager: {fileID: 1461592881}
   browser: {fileID: 1429886170}
   nextState: 0
+  savedClasses: 0
 --- !u!4 &591356241
 Transform:
   m_ObjectHideFlags: 0

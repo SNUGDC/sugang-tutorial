@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using System.Collections.Generic;
 using MonsterLove.StateMachine;
 
@@ -29,6 +30,14 @@ public class SemesterMain11 : StateBehaviour
     {
         Initialize<States>();
         ChangeState(States.ApplyingClasses);
+    }
+    void Start()
+    {
+        
+    }
+    private void logic()
+    {
+        
     }
     private void ApplyingClasses_Start()
     {

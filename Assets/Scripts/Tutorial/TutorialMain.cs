@@ -15,11 +15,11 @@ public class TutorialMain : MonoBehaviour {
     
     private IEnumerator Logic()
     {
-        yield return WaitForDialogueEnd();
+        yield return CoroutineHelper.WaitForDialogueEnd(dialogueManager);
 
-        yield return WaitForChromeOpen();
+        yield return CoroutineHelper.WaitForChromeOpen(browserControl);
 
-        yield return WaitForDialogueEnd("dialogue-openMemo");
+        yield return CoroutineHelper.WaitForDialogueEnd(dialogueManager, "dialogue-openMemo");
 
         CommonPopupOpener.Open(
             title: "Lecture",
@@ -30,66 +30,8 @@ public class TutorialMain : MonoBehaviour {
             noButtonText: "",
             onClickNo: () => {});
 
-        yield return WaitForEnRoll();
+        yield return CoroutineHelper.WaitForEnroll("001");
 
         yield return null;
-    }
-    
-    private IEnumerator WaitForDialogueEnd()
-    {
-        while (dialogueManager.isRunning())
-        {
-            yield return null;
-        }
-        Debug.Log("dialogue end.");
-    }
-    
-    private IEnumerator WaitForDialogueEnd(string dialogueName)
-    {
-        dialogueManager.loadDialogue("dialogue-openMemo");
-        dialogueManager.startDialogue();
-        
-        yield return WaitForDialogueEnd();
-        Debug.Log("Dialogue open : " + dialogueName);
-    }
-
-    private IEnumerator WaitForChromeOpen()
-    {
-        while(!browserControl.gameObject.activeSelf)
-        {
-            yield return null;
-        }
-        Debug.Log("Chrome Opened.");
-    }
-
-    private IEnumerator WaitForEnRoll()
-    {
-        var enrolmentUI = EnrolmentSingleton.Instance.FindEnrolmentUI();
-        while (enrolmentUI == null)
-        {
-            enrolmentUI = EnrolmentSingleton.Instance.FindEnrolmentUI();
-            yield return null;   
-        }
-        
-        Subject selectedSubject = null;
-        Action<Subject> onEnroll = (selectedInput) => {
-            selectedSubject = selectedInput;
-            if (selectedSubject == null || selectedSubject.code != "001")
-            {
-                CommonPopupOpener.OpenSimpleErrorPopup("잘못된 과목입니다. 다시하세요.");
-            }
-        };
-
-        Debug.Assert(enrolmentUI != null);
-        enrolmentUI.OnEnrollEvent += onEnroll;
-        
-        while (selectedSubject == null || selectedSubject.code != "001")
-        {
-            yield return null;
-        }
-        
-        enrolmentUI.OnEnrollEvent -= onEnroll;
-
-        yield return CommonPopupOpener.OpenSimpleSuccessPopupCoroutine("성공");
     }
 }
