@@ -20,10 +20,15 @@ public class BrowserControl : MonoBehaviour
         tabs.Add(Instantiate<TabControl>(tabPrefab));
         foreach(var tab in tabs)
         {
+            tab.Activating += ActivateTab;
+            tab.Closing += CloseTab;
             tab.transform.SetParent(tabParent.transform);
             tab.transform.localPosition = Vector3.zero;
             tab.transform.localScale = Vector3.one;
+            tab.gameObject.SetActive(false);
         }
+        openedTabs = new List<TabControl>();
+        closedTabs = new Queue<TabControl>();
     }
 	void OnEnable()
     {
@@ -32,19 +37,12 @@ public class BrowserControl : MonoBehaviour
        
 	   foreach (TabControl tab in tabs)
        {
-           tab.Activating += ActivateTab;
-           tab.Closing += CloseTab;
-           
-           if (tab.gameObject.activeInHierarchy)
-               openedTabs.Add(tab);
-           else
-               closedTabs.Enqueue(tab);
+           tab.gameObject.SetActive(false);
+           closedTabs.Enqueue(tab);
        }
-       
-       if (openedTabs.Count == 0)
-       {
-           OpenNewTab();
-       }
+
+       OpenNewTab();
+
        ReallocateOrder();
 	}
 	
