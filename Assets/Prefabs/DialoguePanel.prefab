@@ -187,6 +187,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b468e404cd7214a798aa6bff9865e578, type: 3}
     - {fileID: 21300000, guid: ca234a361c7ce467b9398bbca5112a32, type: 3}
     - {fileID: 21300000, guid: cb0d1459890844b9a8f68c0fa2ecd2ac, type: 3}
+  - name: "\uB098"
+    sprites:
+    - {fileID: 21300000, guid: e89f1d9fd2cc9455abd8968eba4488c0, type: 3}
   isTyping: 1
   nextDialogueIndex: 0
   spaceButtonEnabled: 1
@@ -275,8 +278,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 20.000004, y: -42}
-  m_SizeDelta: {x: -40, y: -83}
+  m_AnchoredPosition: {x: -175, y: -42}
+  m_SizeDelta: {x: -430, y: -83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22413890
 RectTransform:
@@ -312,8 +315,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 402.5, y: 289}
-  m_SizeDelta: {x: -805, y: 47.649994}
+  m_AnchoredPosition: {x: 421, y: 252}
+  m_SizeDelta: {x: -474, y: 505}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000
 Prefab:

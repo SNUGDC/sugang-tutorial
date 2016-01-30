@@ -23,6 +23,15 @@ public class CommonPopup : MonoBehaviour {
         this.onClickNo = onClickNo;
         this.onClickYesText.text = yesClickText;
         this.onClickNoText.text = noButtonText;
+
+        if (this.onClickYesText.text == "")
+        {
+            YesButton.gameObject.SetActive(false);
+        }
+        if (this.onClickNoText.text == "")
+        {
+            NoButton.gameObject.SetActive(false);
+        }
     }
 
     public void OnYesClicked()
