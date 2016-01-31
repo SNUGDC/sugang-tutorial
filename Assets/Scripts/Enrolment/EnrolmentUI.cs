@@ -97,6 +97,7 @@ public class EnrolmentUI : MonoBehaviour
             }
         }
     }
+    public Action OnEnrollInterestCallback;
     public void OnEnrollInterest()
     {
         var interestSubjects = EnrolmentSingleton.Instance.interestSubjects;
@@ -124,18 +125,37 @@ public class EnrolmentUI : MonoBehaviour
         }
         else
         {
-            CommonPopupOpener.OpenSimpleSuccessPopup("성공", ()=>{}, ()=>{});
+            CommonPopupOpener.OpenSimpleSuccessPopup("성공", ()=>{
+                if (OnEnrollInterestCallback != null) {
+                    OnEnrollInterestCallback();
+                }
+            }, ()=>{
+                if (OnEnrollInterestCallback != null) {
+                    OnEnrollInterestCallback();
+                }
+            });
             interestSubjects.Add(selectedSubject);
         }
     }
 
+    public Action BlockSearchByCode;
+    public Action BlockSearchByName;
     public void Search(string code, string name)
     {
         IEnumerable<Subject> query = subjects;
         if (code != "") {
+            if (BlockSearchByCode != null) {
+                BlockSearchByCode();
+                return;
+            }
             query = query.Where(subject => subject.code.Contains(code));
         }
         if (name != "") {
+            if (BlockSearchByName != null)
+            {
+                BlockSearchByName();
+                return;
+            }
             query = query.Where(subject => subject.name.Contains(name));
         }
         

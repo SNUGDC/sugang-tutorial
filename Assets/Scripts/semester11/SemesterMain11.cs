@@ -11,6 +11,7 @@ public class SemesterMain11 : StateBehaviour
     {
         ApplyingClasses,
         SearchedByClassName,
+        WaitingSearch,
         SearchedByNumber,
         SavedClassesFirst,
         AfterSearchedByClassName,
@@ -56,18 +57,36 @@ public class SemesterMain11 : StateBehaviour
     }
     private void ApplyingClasses_Update()
     {
+        if (EnrolmentSingleton.Instance.FindEnrolmentUI() != null)
+        {
+            ChangeState(States.WaitingSearch);
+        }
         if (!dialogueManager.isRunning() && nextState != States.ApplyingClasses)
         {
             ChangeState(nextState);
         }
     }
+    private void WaitingSearch_Enter()
+    {
+        var enrolmentUI = EnrolmentSingleton.Instance.FindEnrolmentUI();
+        enrolmentUI.BlockSearchByCode = () => ChangeState(States.SearchedByNumber);
+        enrolmentUI.BlockSearchByName = () => ChangeState(States.SearchedByClassName);
+    }
     private void SearchedByClassName_Enter()
     {
+        var enrolUI = EnrolmentSingleton.Instance.FindEnrolmentUI();
+        enrolUI.OnEnrollInterestCallback = () => savedClasses = true;
+
+        // browser.gameObject.SetActive(false);
         dialogueManager.loadDialogue("dialogue-2-1");
         dialogueManager.startDialogue();
     }
     private void SearchedByClassName_Update()
     {
+        // if (!dialogueManager.isRunning() && !browser.gameObject.activeSelf)
+        // {
+        //     browser.gameObject.SetActive(true);
+        // }
         if (!dialogueManager.isRunning() && savedClasses)
         {
             ChangeState(States.AfterSearchedByClassName);
@@ -87,11 +106,19 @@ public class SemesterMain11 : StateBehaviour
     }
     private void SearchedByNumber_Enter()
     {
+        var enrolUI = EnrolmentSingleton.Instance.FindEnrolmentUI();
+        enrolUI.OnEnrollInterestCallback = () => savedClasses = true;
+
+        // browser.gameObject.SetActive(false);
         dialogueManager.loadDialogue("dialogue-2-2");
         dialogueManager.startDialogue();
     }
     private void SearchedByNumber_Update()
     {
+        // if (!dialogueManager.isRunning() && !browser.gameObject.activeSelf)
+        // {
+        //     browser.gameObject.SetActive(true);
+        // }
         if (!dialogueManager.isRunning() && savedClasses)
         {
             ChangeState(States.AfterSearchedByNumber);
@@ -106,7 +133,8 @@ public class SemesterMain11 : StateBehaviour
     {
         if (!dialogueManager.isRunning())
         {
-            SceneManager.LoadScene("stage03");
+            // SceneManager.LoadScene("stage03");
+            SceneManager.LoadScene("credit");
         }
     }
     private void SavedClassesFirst_Enter()
@@ -118,7 +146,8 @@ public class SemesterMain11 : StateBehaviour
     {
         if (!dialogueManager.isRunning())
         {
-            SceneManager.LoadScene("scene03");
+            // SceneManager.LoadScene("scene03");
+            SceneManager.LoadScene("credit");
         }
     }
 }
