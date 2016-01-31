@@ -35,6 +35,6 @@ public class TutorialMain : MonoBehaviour {
 
         yield return CoroutineHelper.WaitForDialogueEnd(dialogueManager, "dialogue-clearMemo");
 
-        SceneManager.LoadScene("stage2");
+        SceneManager.LoadScene("stage2_opening");
     }
 }
