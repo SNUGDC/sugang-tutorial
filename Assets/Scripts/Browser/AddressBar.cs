@@ -47,7 +47,7 @@ public class AddressBar : MonoBehaviour
         MoveToSite(SiteInfo.Search(parsedString));
     }
     
-    void MoveToSite(int siteIndex)
+    public void MoveToSite(int siteIndex)
     {
         InactiveAll();
         sites[siteIndex].SetActive(true);

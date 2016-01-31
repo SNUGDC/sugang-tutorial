@@ -101,7 +101,7 @@ public class SemesterMain11 : StateBehaviour
     {
         if (!dialogueManager.isRunning())
         {
-            SceneManager.LoadScene("stage03");
+            SceneManager.LoadScene("credit");
         }
     }
     private void SearchedByNumber_Enter()

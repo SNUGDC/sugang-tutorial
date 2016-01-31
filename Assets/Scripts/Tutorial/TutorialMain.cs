@@ -25,13 +25,13 @@ public class TutorialMain : MonoBehaviour {
         CommonPopupOpener.Open(
             title: "Lecture",
             firstLine: "sugang.snu.ac.kr 접속하기",
-            secondLine: "Programming 수업수강신청하기",
+            secondLine: "게임의 이해 수업수강신청하기",
             yesButtonText: "",
             onClickYes: () => {},
             noButtonText: "",
             onClickNo: () => {});
 
-        yield return CoroutineHelper.WaitForEnroll("001");
+        yield return CoroutineHelper.WaitForEnroll("2114.309");
 
         SceneManager.LoadScene("stage2");
         

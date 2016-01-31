@@ -46,6 +46,7 @@ public class IntroManager : StateBehaviour
     private void BrowserOpen_Enter()
     {
         Debug.Log("Entered BrowserOpen!");
+        browser.OpenSugang();
         dialogueManager.loadDialogue("dialogue-0-1");
         dialogueManager.startDialogue();
     }

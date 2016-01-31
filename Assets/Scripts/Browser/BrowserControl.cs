@@ -93,4 +93,9 @@ public class BrowserControl : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+    public void OpenSugang()
+    {
+        //fixme
+        GameObject.FindObjectOfType<AddressBar>().MoveToSite(1);
+    }
 }
